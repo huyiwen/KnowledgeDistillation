@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 9, in <module>
+    from config import Config
+  File "/home/huyiwen/KnowledgeDistillation/config.py", line 12, in <module>
+    from datargs import arg
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/datargs/__init__.py", line 1, in <module>
+    from .make import parse, arg, make_parser, argsclass
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/datargs/make.py", line 106, in <module>
+    from .compat import (
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/datargs/compat/__init__.py", line 175, in <module>
+    import attr
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/__init__.py", line 8, in <module>
+    from . import converters, exceptions, filters, setters, validators
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/validators.py", line 536, in <module>
+    class _MaxLengthValidator:
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/_make.py", line 1481, in wrap
+    builder = _ClassBuilder(
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/_make.py", line 669, in __init__
+    attrs, base_attrs, base_map = _transform_attrs(
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/_make.py", line 591, in _transform_attrs
+    AttrsClass = _make_attr_tuple_class(cls.__name__, attr_names)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/_make.py", line 357, in _make_attr_tuple_class
+    _compile_and_eval("\n".join(attr_class_template), globs)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/attr/_make.py", line 301, in _compile_and_eval
+    bytecode = compile(script, filename, "exec")
+KeyboardInterrupt

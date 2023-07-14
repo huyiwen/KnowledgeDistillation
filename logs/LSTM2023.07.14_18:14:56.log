@@ -1,0 +1,59 @@
+Config(class_list=<map object at 0x7f58a8d79e10>,
+       train_path='data/train.json',
+       test_path='data/test.json',
+       teacher_save_path='saved_dict/teacher.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       device=device(type='cuda'),
+       train_teacher=0,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=5,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       batch_size=64,
+       pad_size=32,
+       learning_rate=0.0005,
+       bert_path='./bert_pretrain',
+       tokenizer=PreTrainedTokenizer(name_or_path='./bert_pretrain', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       hidden_size=768,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       use_mpo=True,
+       mpo_type=['lstm'],
+       truncate_num=10000,
+       embedding_input_shape=<class 'list'>,
+       embedding_output_shape=<class 'list'>,
+       fc1_input_shape=(),
+       fc1_output_shape=(),
+       fc2_input_shape=(),
+       fc2_output_shape=(),
+       xh_input_shape=[300],
+       xh_output_shape=[1200],
+       hh_input_shape=[300],
+       hh_output_shape=[1200])
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.seq_relationship.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 45, in <module>
+    S_model = biLSTM(cfg).to(cfg.device)
+  File "/home/huyiwen/KnowledgeDistillation/models/lstm_mpo.py", line 149, in __init__
+    self.lstm = biLSTMMPO(
+  File "/home/huyiwen/KnowledgeDistillation/models/lstm_mpo.py", line 93, in __init__
+    self.rnn_cell_list.append(LSTMCell(self.input_size, self.hidden_size, config))
+  File "/home/huyiwen/KnowledgeDistillation/models/lstm_mpo.py", line 27, in __init__
+    self.xh = LinearDecomMPO(input_size, hidden_size*4, *self.xh_mpo_config, bias=self.bias)
+  File "/home/huyiwen/KnowledgeDistillation/models/linear_mpo.py", line 64, in __init__
+    self._from_pretrained(
+  File "/home/huyiwen/KnowledgeDistillation/models/linear_mpo.py", line 82, in _from_pretrained
+    tensor_set, _, _ = self.mpo.matrix2mpo(weight)
+  File "/home/huyiwen/KnowledgeDistillation/compress_tools/Matrix2MPO.py", line 203, in matrix2mpo
+    tensor_set = self.mpo_canonical(tensor_set,p,q)
+  File "/home/huyiwen/KnowledgeDistillation/compress_tools/Matrix2MPO.py", line 152, in mpo_canonical
+    tensor_set[0] = np.tensordot(tensor_set[0], p[1], [3,0])
+  File "<__array_function__ internals>", line 180, in tensordot
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/numpy/core/numeric.py", line 1108, in tensordot
+    if as_[axes_a[k]] != bs[axes_b[k]]:
+IndexError: tuple index out of range

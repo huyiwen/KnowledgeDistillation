@@ -10,7 +10,7 @@ from config import Config
 from student import student_train
 from teacher import teacher_train
 from models.bert import BERT_Model
-from models.biLSTM import biLSTM
+from models.lstm_mpo import biLSTM
 import time
 from datargs import parse
 from pprint import pprint

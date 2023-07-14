@@ -1,0 +1,57 @@
+Config(class_list=<generator object Config.<genexpr> at 0x7f30dbee8ba0>,
+       train_path='data/train.json',
+       test_path='data/test.json',
+       teacher_save_path='saved_dict/teacher.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       device=device(type='cuda'),
+       train_teacher=0,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=5,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       batch_size=64,
+       pad_size=32,
+       learning_rate=0.0005,
+       bert_path='./bert_pretrain',
+       tokenizer=PreTrainedTokenizer(name_or_path='./bert_pretrain', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       hidden_size=768,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       use_mpo=True,
+       mpo_type=['lstm', 'fc', 'embedding'],
+       truncate_num=10000,
+       embedding_input_shape=[19, 8, 7, 20],
+       embedding_output_shape=[10, 3, 1, 10],
+       fc1_input_shape=[10, 2, 3, 10],
+       fc1_output_shape=[6, 2, 2, 8],
+       fc2_input_shape=[6, 2, 2, 8],
+       fc2_output_shape=[5, 1, 1, 1],
+       xh_input_shape=[10, 3, 1, 10],
+       xh_output_shape=[10, 3, 4, 10],
+       hh_input_shape=[10, 3, 1, 10],
+       hh_output_shape=[10, 3, 4, 10])
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.predictions.bias', 'cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+9,687,677 total parameters.
+Epoch [1/3]
+Iter:      0,  Train Loss: 1.1e+01,  Train Acc: 23.44%,  Val Loss:   9.9,  Val Acc: 21.31%,  Time: 0:00:04 *
+Iter:     50,  Train Loss:   8.3,  Train Acc: 28.12%,  Val Loss:   9.1,  Val Acc: 33.76%,  Time: 0:00:15 *
+Iter:    100,  Train Loss:   5.7,  Train Acc: 51.56%,  Val Loss:   6.1,  Val Acc: 56.96%,  Time: 0:00:26 *
+Iter:    150,  Train Loss:   5.4,  Train Acc: 71.88%,  Val Loss:   5.7,  Val Acc: 60.35%,  Time: 0:00:38 *
+Iter:    200,  Train Loss:   6.3,  Train Acc: 60.94%,  Val Loss:   5.3,  Val Acc: 62.07%,  Time: 0:00:48 *
+Epoch [2/3]
+Iter:    250,  Train Loss:   3.9,  Train Acc: 75.00%,  Val Loss:   5.2,  Val Acc: 64.30%,  Time: 0:00:59 *
+Iter:    300,  Train Loss:   4.4,  Train Acc: 73.44%,  Val Loss:   5.0,  Val Acc: 62.96%,  Time: 0:01:10 *
+Iter:    350,  Train Loss:   4.0,  Train Acc: 75.00%,  Val Loss:   4.9,  Val Acc: 65.18%,  Time: 0:01:20 *
+Iter:    400,  Train Loss:   5.0,  Train Acc: 64.06%,  Val Loss:   4.8,  Val Acc: 64.82%,  Time: 0:01:31 *
+Iter:    450,  Train Loss:   5.1,  Train Acc: 62.50%,  Val Loss:   4.9,  Val Acc: 65.88%,  Time: 0:01:42 
+Epoch [3/3]
+Iter:    500,  Train Loss:   4.7,  Train Acc: 70.31%,  Val Loss:   4.7,  Val Acc: 66.85%,  Time: 0:01:53 *
+Iter:    550,  Train Loss:   4.0,  Train Acc: 71.88%,  Val Loss:   4.6,  Val Acc: 66.13%,  Time: 0:02:04 *
+Iter:    600,  Train Loss:   4.3,  Train Acc: 71.88%,  Val Loss:   4.5,  Val Acc: 66.94%,  Time: 0:02:14 *
+Iter:    650,  Train Loss:   4.8,  Train Acc: 70.31%,  Val Loss:   4.5,  Val Acc: 66.27%,  Time: 0:02:25 
+Iter:    700,  Train Loss:   3.3,  Train Acc: 76.56%,  Val Loss:   4.4,  Val Acc: 66.66%,  Time: 0:02:36 *

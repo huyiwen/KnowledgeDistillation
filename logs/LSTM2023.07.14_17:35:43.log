@@ -1,0 +1,48 @@
+Config(class_list=<generator object Config.<genexpr> at 0x7f1ab1ebdf50>,
+       train_path='data/train.json',
+       test_path='data/test.json',
+       teacher_save_path='saved_dict/teacher.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       device=device(type='cuda'),
+       train_teacher=0,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=5,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       batch_size=64,
+       pad_size=32,
+       learning_rate=0.0005,
+       bert_path='./bert_pretrain',
+       tokenizer=PreTrainedTokenizer(name_or_path='./bert_pretrain', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       hidden_size=768,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       use_mpo=True,
+       mpo_type=['lstm'],
+       truncate_num=10000,
+       embedding_input_shape=<class 'list'>,
+       embedding_output_shape=<class 'list'>,
+       fc1_input_shape=(),
+       fc1_output_shape=(),
+       fc2_input_shape=(),
+       fc2_output_shape=(),
+       xh_input_shape=[10, 3, 1, 2, 5],
+       xh_output_shape=[10, 3, 2, 4, 5],
+       hh_input_shape=[10, 3, 1, 2, 5],
+       hh_output_shape=[10, 3, 2, 4, 5])
+加载数据...
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 33, in <module>
+    train_loader = get_loader(train_text, train_label, cfg.tokenizer)
+  File "/home/huyiwen/KnowledgeDistillation/utils.py", line 46, in get_loader
+    data = tokenizer.batch_encode_plus(x, max_length=50, padding='max_length', truncation='longest_first')
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 2765, in batch_encode_plus
+    return self._batch_encode_plus(
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 737, in _batch_encode_plus
+    batch_outputs = self._batch_prepare_for_model(
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 809, in _batch_prepare_for_model
+    batch_outputs = self.pad(
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 2980, in pad
+    for key, value in outputs.items():
+KeyboardInterrupt

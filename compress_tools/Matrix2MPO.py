@@ -233,7 +233,7 @@ class MPO:
         # Transpose and reshape to output
         t = t.permute(tuple(new_index))
         t = t.reshape(torch.prod(torch.tensor(self.mpo_input_shape)),torch.prod(torch.tensor(self.mpo_output_shape)))
-        return t.T
+        return t
 
     def calculate_total_mpo_param(self, cutoff=True):
         # print("use cutoff: ", cutoff)

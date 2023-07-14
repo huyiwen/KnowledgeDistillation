@@ -1,0 +1,52 @@
+Config(class_list=<function Config.<lambda> at 0x7f717c263eb0>,
+       train_path='data/train.json',
+       test_path='data/test.json',
+       teacher_save_path='saved_dict/teacher.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       device=device(type='cuda'),
+       train_teacher=0,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=5,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       batch_size=64,
+       pad_size=32,
+       learning_rate=0.0005,
+       bert_path='./bert_pretrain',
+       tokenizer=PreTrainedTokenizer(name_or_path='./bert_pretrain', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       hidden_size=768,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       use_mpo=True,
+       mpo_type=['lstm'],
+       truncate_num=10000,
+       embedding_input_shape=<class 'list'>,
+       embedding_output_shape=<class 'list'>,
+       fc1_input_shape=(),
+       fc1_output_shape=(),
+       fc2_input_shape=(),
+       fc2_output_shape=(),
+       xh_input_shape=[10, 3, 1, 2, 5],
+       xh_output_shape=[10, 3, 2, 4, 5],
+       hh_input_shape=[10, 3, 1, 2, 5],
+       hh_output_shape=[10, 3, 2, 4, 5])
+加载数据...
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 33, in <module>
+    train_loader = get_loader(train_text, train_label, cfg.tokenizer)
+  File "/home/huyiwen/KnowledgeDistillation/utils.py", line 46, in get_loader
+    data = tokenizer.batch_encode_plus(x, max_length=50, padding='max_length', truncation='longest_first')
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 2765, in batch_encode_plus
+    return self._batch_encode_plus(
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 733, in _batch_encode_plus
+    first_ids = get_input_ids(ids)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 700, in get_input_ids
+    tokens = self.tokenize(text, **kwargs)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 510, in tokenize
+    escaped_special_toks = [
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 511, in <listcomp>
+    re.escape(s_tok) for s_tok in (self.unique_no_split_tokens + self.all_special_tokens)
+  File "/home/huyiwen/anaconda3/lib/python3.10/re.py", line 274, in escape
+    return pattern.translate(_special_chars_map)
+KeyboardInterrupt

@@ -12,6 +12,7 @@ import numpy as np
 from models.bert import *
 from sklearn import metrics
 from utils import get_time_dif
+from config import Config
 
 
 def teacher_predict(model, config, loader):
@@ -97,7 +98,7 @@ def teacher_test(model, config, test_loader):
     print("Time usage:", time_dif)
 
 
-def teacher_evaluate(model, config, test_loader, test=False):
+def teacher_evaluate(model, config: Config, test_loader, test=False):
     model.eval()
     loss_total = 0
     predict_all = np.array([], dtype=int)
@@ -121,7 +122,7 @@ def teacher_evaluate(model, config, test_loader, test=False):
         # data['label'] = labels_all
         # data['pred'] = predict_all
         # data.to_csv('pred.csv', encoding="utf_8_sig")
-        report = metrics.classification_report(labels_all, predict_all, target_names=config.class_list, digits=4)
+        report = metrics.classification_report(labels_all, predict_all, target_names=list(config.class_list), digits=4)
         confusion = metrics.confusion_matrix(labels_all, predict_all)
         return acc, loss_total / len(test_loader), report, confusion
     return acc, loss_total / len(test_loader)

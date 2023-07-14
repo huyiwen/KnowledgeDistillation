@@ -7,15 +7,15 @@
 """
 import torch
 from transformers import BertTokenizer
-import dataclasses
-from typing import Sequence, List
+from dataclasses import dataclass, field
+from typing import List
 from datargs import arg
 
 
-@dataclasses.dataclass
+@dataclass
 class Config(object):
 
-    class_list: Sequence[str] = arg(default=(x.strip() for x in open('data/class_multi1.txt').readlines()))
+    class_list: List[str] = arg(default=map(lambda x: x.strip(), open('data/class_multi1.txt').readlines()))
     train_path: str = 'data/train.json'
     test_path: str = 'data/test.json'
     teacher_save_path: str = 'saved_dict/teacher.ckpt'        # 模型训练结果
