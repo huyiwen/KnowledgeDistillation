@@ -5,18 +5,25 @@
 # @Email   : 893422529@qq.com
 # @File    : train_main.py
 """
-from utils import *
-from config import *
-from student import *
-from teacher import *
-from models.bert import *
-from models.biLSTM import *
+from utils import get_dataset, get_loader, get_time_dif, set_seed
+from config import Config
+from student import student_train
+from teacher import teacher_train
+from models.bert import BERT_Model
+from models.biLSTM import biLSTM
+import time
+from datargs import parse
+from pprint import pprint
+
+
+HELP = "distill.py -m"
 
 
 if __name__ == '__main__':
 
     set_seed(1)
-    cfg = Config()
+    cfg = parse(Config)
+    pprint(cfg)
 
     start_time = time.time()
     print("加载数据...")
@@ -37,11 +44,4 @@ if __name__ == '__main__':
     if cfg.train_student:
         S_model = biLSTM(cfg).to(cfg.device)
         student_train(T_model, S_model, cfg, train_loader, test_loader)
-
-
-
-
-
-
-
 

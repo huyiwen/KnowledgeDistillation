@@ -1,0 +1,19 @@
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.predictions.transform.dense.weight', 'cls.predictions.bias', 'cls.seq_relationship.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.bias', 'cls.predictions.decoder.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 40, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/KnowledgeDistillation/student.py", line 38, in student_train
+    t_train_logits = teacher_predict(T_model, config, train_loader)
+  File "/home/huyiwen/KnowledgeDistillation/teacher.py", line 19, in teacher_predict
+    model.load_state_dict(torch.load(config.teacher_save_path))
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 791, in load
+    with _open_file_like(f, 'rb') as opened_file:
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 271, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 252, in __init__
+    super().__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'saved_dict/teacher.ckpt'

@@ -7,31 +7,66 @@
 """
 import torch
 from transformers import BertTokenizer
+import dataclasses
+from typing import Sequence, List
+from datargs import arg
 
 
+@dataclasses.dataclass
 class Config(object):
 
-    """配置参数"""
-    def __init__(self):
-        self.class_list = [x.strip() for x in open(
-            'data/class_multi1.txt').readlines()]                                # 类别名单
-        self.train_path = 'data/train.json'
-        self.test_path = 'data/test.json'
-        self.teacher_save_path = 'saved_dict/teacher.ckpt'        # 模型训练结果
-        self.student_save_path = 'saved_dict/student.ckpt'        # 模型训练结果
+    class_list: Sequence[str] = arg(default=(x.strip() for x in open('data/class_multi1.txt').readlines()))
+    train_path: str = 'data/train.json'
+    test_path: str = 'data/test.json'
+    teacher_save_path: str = 'saved_dict/teacher.ckpt'        # 模型训练结果
+    student_save_path: str = 'saved_dict/student.ckpt'        # 模型训练结果
 
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')   # 设备
+    device: torch.DeviceObjType = torch.device('cuda' if torch.cuda.is_available() else 'cpu')   # 设备
 
-        self.train_teacher = 0
-        self.train_student = 1
-        self.require_improvement = 1000                                 # 若超过1000batch效果还没提升，则提前结束训练
-        self.num_classes = len(self.class_list)                         # 类别数
-        self.teacher_num_epochs = 3                                          # epoch数
-        self.student_num_epochs = 3                                          # epoch数
+    train_teacher: int = 0
+    train_student: int = 1
+    require_improvement: int = 1000                           # 若超过1000batch效果还没提升，则提前结束训练
+    num_classes: int = arg(default=len(open('data/class_multi1.txt').readlines()))
+    teacher_num_epochs: int = 3                               # epoch数
+    student_num_epochs: int = 3                               # epoch数
 
-        self.batch_size = 64                                      # 128mini-batch大小
-        self.pad_size = 32                                           # 每句话处理成的长度(短填长切)
-        self.learning_rate =  5e-4                                    # 学习率
-        self.bert_path = './bert_pretrain'
-        self.tokenizer = BertTokenizer.from_pretrained(self.bert_path)
-        self.hidden_size = 768
+    batch_size: int = 64                                      # 128mini-batch大小
+    pad_size: int = 32                                        # 每句话处理成的长度(短填长切)
+    learning_rate: float = 5e-4                                 # 学习率
+    bert_path: str = './bert_pretrain'
+    tokenizer: BertTokenizer = BertTokenizer.from_pretrained(bert_path)
+    hidden_size: int = 768
+
+    LSTM_bias: bool = True
+    LSTM_peephole: bool = False
+
+    use_mpo: bool = False
+    mpo_type: List[str] = arg(default=("fc", "lstm", "embedding"))
+    truncate_num: int = 10000
+
+    embedding_input_shape: List[int] = arg(default=list)  # 21128
+    embedding_output_shape: List[int] = arg(default=list)  # 300
+
+    fc1_input_shape: List[int] = arg(default=())  # 600
+    fc1_output_shape: List[int] = arg(default=())  # 192
+
+    fc2_input_shape: List[int] = arg(default=())  # 192
+    fc2_output_shape: List[int] = arg(default=())  # 5 (Tnews)
+
+    xh_input_shape: List[int] = arg(default=())  # 300
+    xh_output_shape: List[int] = arg(default=())  # 1200
+
+    hh_input_shape: List[int] = arg(default=())  # 300
+    hh_output_shape: List[int] = arg(default=())  # 1200
+
+
+    def __getattr__(self, name):
+        if name.endswith("_mpo"):
+            return (
+                getattr(self, name[:-4] + "_input_shape"),
+                getattr(self, name[:-4] + "_output_shape"),
+                self.truncate_num,
+            )
+        else:
+            raise AttributeError(f"{__class__.__name__} has no attribute {name}")
+

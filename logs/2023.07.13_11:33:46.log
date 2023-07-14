@@ -1,0 +1,9 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 13, in <module>
+    from models.biLSTM import biLSTM
+  File "/home/huyiwen/KnowledgeDistillation/models/biLSTM.py", line 13, in <module>
+    from compress_tools.MPOtorch import LinearDecomMPO, LSTMMPO, EmbeddingMPO
+  File "/home/huyiwen/KnowledgeDistillation/compress_tools/MPOtorch.py", line 10, in <module>
+    from models.rnn import LSTM
+ImportError: cannot import name 'LSTM' from 'models.rnn' (/home/huyiwen/KnowledgeDistillation/models/rnn.py)

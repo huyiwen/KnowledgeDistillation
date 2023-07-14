@@ -1,0 +1,12 @@
+nohup: ignoring input
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.decoder.weight', 'cls.predictions.bias', 'cls.predictions.transform.dense.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 58, in <module>
+    S_model = biLSTM(cfg).to(cfg.device)
+  File "/home/huyiwen/KnowledgeDistillation/models/biLSTM.py", line 48, in __init__
+    self.lstm = biLSTMMPO(input_size=300, hidden_size=300,
+TypeError: biLSTMMPO.__init__() got an unexpected keyword argument 'batch_first'

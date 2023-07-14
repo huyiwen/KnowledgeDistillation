@@ -1,0 +1,26 @@
+nohup: ignoring input
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.predictions.transform.LayerNorm.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.bias', 'cls.seq_relationship.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+7,177,157 total parameters.
+Epoch [1/3]
+/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([64])) that is different to the input size (torch.Size([64, 5])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 59, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/KnowledgeDistillation/student.py", line 55, in student_train
+    loss = get_loss(t_train_logits[i], s_logits, label.float(), 1, 2)
+  File "/home/huyiwen/KnowledgeDistillation/student.py", line 32, in get_loss
+    loss = a * loss1(s_logits, label) + T * loss2(t_logits, s_logits)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/nn/modules/loss.py", line 536, in forward
+    return F.mse_loss(input, target, reduction=self.reduction)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/nn/functional.py", line 3294, in mse_loss
+    expanded_input, expanded_target = torch.broadcast_tensors(input, target)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/functional.py", line 74, in broadcast_tensors
+    return _VF.broadcast_tensors(tensors)  # type: ignore[attr-defined]
+RuntimeError: The size of tensor a (5) must match the size of tensor b (64) at non-singleton dimension 1

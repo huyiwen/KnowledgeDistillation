@@ -1,0 +1,18 @@
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.predictions.transform.dense.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.bias', 'cls.seq_relationship.bias', 'cls.seq_relationship.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Epoch [1/3]
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 36, in <module>
+    teacher_train(T_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/KnowledgeDistillation/teacher.py", line 64, in teacher_train
+    torch.save(model.state_dict(), config.teacher_save_path)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 440, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 315, in _open_zipfile_writer
+    return container(name_or_buffer)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 288, in __init__
+    super().__init__(torch._C.PyTorchFileWriter(str(name)))
+RuntimeError: Parent directory saved_dict does not exist.

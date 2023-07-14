@@ -1,0 +1,6 @@
+nohup.out
+saved_dict/
+models/
+__pycache__/
+BARK_TOKEN
+bert_pretrain/

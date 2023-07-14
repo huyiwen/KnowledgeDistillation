@@ -7,6 +7,7 @@
 # @Software: PyCharm
 """
 from teacher import *
+from tqdm import tqdm
 
 
 # 生成句向量
@@ -52,12 +53,16 @@ def student_train(T_model, S_model, config, train_loader, test_loader):
             label = label.to(config.device)
             optimizer.zero_grad()
             s_logits = S_model(texts)
+            # print(t_train_logits[i].shape, s_logits.shape, label.shape)
             loss = get_loss(t_train_logits[i], s_logits, label.long(), 1, 2)
             loss.backward()
             optimizer.step()
             if total_batch % 50 == 0:
                 cur_pred = torch.squeeze(s_logits, dim=1)
-                train_acc = metrics.accuracy_score(label.long(), torch.max(cur_pred, 1)[1].cpu().numpy())
+                train_acc = metrics.accuracy_score(
+                    label.cpu().long(),
+                    torch.max(cur_pred, 1)[1].cpu().numpy()
+                )
                 dev_loss, dev_acc = student_evaluate(S_model, config, t_test_logits, test_loader)
                 if dev_loss < dev_best_loss:
                     dev_best_loss = dev_loss
