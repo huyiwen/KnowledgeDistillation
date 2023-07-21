@@ -1,0 +1,60 @@
+Config(class_list=<map object at 0x7f4daa6dde10>,
+       train_path='data/train.json',
+       test_path='data/test.json',
+       teacher_save_path='saved_dict/teacher.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       device=device(type='cpu'),
+       train_teacher=0,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=5,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       batch_size=64,
+       pad_size=32,
+       learning_rate=0.0002,
+       bert_path='./bert_pretrain',
+       tokenizer=PreTrainedTokenizer(name_or_path='./bert_pretrain', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       hidden_size=768,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       use_mpo=True,
+       mpo_type=['fc'],
+       truncate_num=10000,
+       embedding_input_shape=<class 'list'>,
+       embedding_output_shape=<class 'list'>,
+       fc1_input_shape=[10, 2, 2, 1, 3, 5],
+       fc1_output_shape=[6, 2, 2, 1, 2, 4],
+       fc2_input_shape=[6, 2, 2, 1, 2, 4],
+       fc2_output_shape=[5, 1, 1, 1, 1, 1],
+       xh_input_shape=(),
+       xh_output_shape=(),
+       hh_input_shape=(),
+       hh_output_shape=())
+加载数据...
+Time usage: 0:00:03
+Some weights of the model checkpoint at ./bert_pretrain were not used when initializing BertModel: ['cls.seq_relationship.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.decoder.weight', 'cls.predictions.bias', 'cls.seq_relationship.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Traceback (most recent call last):
+  File "/home/huyiwen/KnowledgeDistillation/distill.py", line 46, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/KnowledgeDistillation/student.py", line 39, in student_train
+    t_train_logits = teacher_predict(T_model, config, train_loader)
+  File "/home/huyiwen/KnowledgeDistillation/teacher.py", line 20, in teacher_predict
+    model.load_state_dict(torch.load(config.teacher_save_path))
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 809, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 1172, in _load
+    result = unpickler.load()
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 1142, in persistent_load
+    typed_storage = load_tensor(dtype, nbytes, key, _maybe_decode_ascii(location))
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 1116, in load_tensor
+    wrap_storage=restore_location(storage, location),
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 217, in default_restore_location
+    result = fn(storage, location)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 182, in _cuda_deserialize
+    device = validate_cuda_device(location)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/torch/serialization.py", line 166, in validate_cuda_device
+    raise RuntimeError('Attempting to deserialize object on a CUDA '
+RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu') to map your storages to the CPU.

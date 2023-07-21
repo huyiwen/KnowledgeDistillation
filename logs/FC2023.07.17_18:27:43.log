@@ -1,9 +1,9 @@
-Config(class_list=<generator object Config.<genexpr> at 0x7f1ab1ebdf50>,
+Config(class_list=<map object at 0x7f60b36a9e10>,
        train_path='data/train.json',
        test_path='data/test.json',
        teacher_save_path='saved_dict/teacher.ckpt',
        student_save_path='saved_dict/student.ckpt',
-       device=device(type='cuda'),
+       device=device(type='cpu'),
        train_teacher=0,
        train_student=1,
        require_improvement=1000,
@@ -19,18 +19,18 @@ Config(class_list=<generator object Config.<genexpr> at 0x7f1ab1ebdf50>,
        LSTM_bias=True,
        LSTM_peephole=False,
        use_mpo=True,
-       mpo_type=['lstm'],
+       mpo_type=['fc'],
        truncate_num=10000,
        embedding_input_shape=<class 'list'>,
        embedding_output_shape=<class 'list'>,
-       fc1_input_shape=(),
-       fc1_output_shape=(),
-       fc2_input_shape=(),
-       fc2_output_shape=(),
-       xh_input_shape=[10, 3, 1, 2, 5],
-       xh_output_shape=[10, 3, 2, 4, 5],
-       hh_input_shape=[10, 3, 1, 2, 5],
-       hh_output_shape=[10, 3, 2, 4, 5])
+       fc1_input_shape=[10, 2, 5, 6],
+       fc1_output_shape=[6, 2, 4, 4],
+       fc2_input_shape=[6, 2, 4, 4],
+       fc2_output_shape=[5, 1, 1, 1],
+       xh_input_shape=(),
+       xh_output_shape=(),
+       hh_input_shape=(),
+       hh_output_shape=())
 加载数据...
 Traceback (most recent call last):
   File "/home/huyiwen/KnowledgeDistillation/distill.py", line 33, in <module>
@@ -39,10 +39,10 @@ Traceback (most recent call last):
     data = tokenizer.batch_encode_plus(x, max_length=50, padding='max_length', truncation='longest_first')
   File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 2765, in batch_encode_plus
     return self._batch_encode_plus(
-  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 737, in _batch_encode_plus
-    batch_outputs = self._batch_prepare_for_model(
-  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 809, in _batch_prepare_for_model
-    batch_outputs = self.pad(
-  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 2980, in pad
-    for key, value in outputs.items():
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 733, in _batch_encode_plus
+    first_ids = get_input_ids(ids)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 700, in get_input_ids
+    tokens = self.tokenize(text, **kwargs)
+  File "/home/huyiwen/anaconda3/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 498, in tokenize
+    all_special_tokens_extended = dict(
 KeyboardInterrupt
