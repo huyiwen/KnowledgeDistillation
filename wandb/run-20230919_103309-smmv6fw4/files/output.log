@@ -1,0 +1,71 @@
+
+加载数据...
+tensor([[  101,  4205,  5472,  ...,     0,     0,     0],
+        [  101,  2019,  4024,  ...,     0,     0,     0],
+        [  101,  2045,  1005,  ...,     0,     0,     0],
+        ...,
+        [  101,  2035,  1996,  ...,     0,     0,     0],
+        [  101, 11552,  2135,  ...,     0,     0,     0],
+        [  101,  1037,  4121,  ...,     0,     0,     0]])
+Time usage: 0:00:11
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert-base-uncased-SST-2 were not used when initializing BertModel: ['classifier.bias', 'classifier.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+BERT_Model(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (fc): Linear(in_features=768, out_features=192, bias=True)
+  (fc1): Linear(in_features=192, out_features=2, bias=True)
+)
+cuda
+biLSTM(
+  (Embedding): Embedding(30522, 300)
+  (lstm): LSTM(300, 300, batch_first=True, bidirectional=True)
+  (fc1): Linear(in_features=600, out_features=192, bias=True)
+  (fc2): Linear(in_features=192, out_features=2, bias=True)
+)
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 71, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/CV/bilstm/student.py", line 105, in student_train
+    print("teacher loss", loss, "teacher acc", acc)
+UnboundLocalError: local variable 'loss' referenced before assignment

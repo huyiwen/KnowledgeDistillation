@@ -1,0 +1,85 @@
+Config(class_list=('0', '1'),
+       teacher_save_path='saved_dict/new_teacher_base_sst2.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       data='/home/huyiwen/datasets/sst2',
+       seed=42,
+       device=device(type='cuda', index=0),
+       train_teacher=1,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=2,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       finetune_optimizer='AdamW',
+       distill_optimizer='AdamW',
+       finetune_batch_size=64,
+       distill_batch_size=64,
+       max_seq_length=50,
+       finetune_lr=0.0005,
+       distill_lr=0.05,
+       bert_path='/home/huyiwen/pretrained/bert',
+       tokenizer=PreTrainedTokenizer(name_or_path='/home/huyiwen/pretrained/bert', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       bert_hidden_size=1024,
+       LSTM_embedding_dim=300,
+       LSTM_hidden_dim=300,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       FC_dim=192,
+       use_mpo=True,
+       custom_bilstm=False,
+       mpo_type=['embedding', 'fc'],
+       truncate_num=10000,
+       embedding_input_shape=[19, 4, 2, 7, 20],
+       embedding_output_shape=[10, 3, 1, 1, 10],
+       fc1_input_shape=[10, 2, 1, 3, 10],
+       fc1_output_shape=[6, 2, 1, 2, 8],
+       fc2_input_shape=[6, 2, 1, 2, 8],
+       fc2_output_shape=[2, 1, 1, 1, 1],
+       xh_input_shape=(),
+       xh_output_shape=(),
+       hh_input_shape=(),
+       hh_output_shape=(),
+       loss_align=False,
+       loss_weight=0.5,
+       loss_func='CosineEmbeddingLoss',
+       tfc_input_shape=(),
+       tfc_output_shape=(),
+       tfc1_input_shape=(),
+       tfc1_output_shape=())
+wandb: Currently logged in as: yiwen_hu. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /home/huyiwen/CV/bilstm/wandb/run-20230908_200701-g1cu6ca1
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run 2023-09-08_20:06:59
+wandb: ⭐️ View project at https://wandb.ai/yiwen_hu/bilstm
+wandb: 🚀 View run at https://wandb.ai/yiwen_hu/bilstm/runs/g1cu6ca1
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:06
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert were not used when initializing BertModel: ['cls.predictions.bias', 'cls.seq_relationship.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Epoch [1/3]
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 64, in <module>
+    teacher_train(T_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/CV/bilstm/teacher.py", line 68, in teacher_train
+    outputs = model(ids, mask)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/huyiwen/CV/bilstm/models/bert.py", line 30, in forward
+    out = self.fc(out[1])
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (64x768 and 1024x192)
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: 🚀 View run 2023-09-08_20:06:59 at: https://wandb.ai/yiwen_hu/bilstm/runs/g1cu6ca1
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20230908_200701-g1cu6ca1/logs

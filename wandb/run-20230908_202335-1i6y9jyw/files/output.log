@@ -1,0 +1,95 @@
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:08
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert were not used when initializing BertModel: ['cls.predictions.transform.dense.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.bias', 'cls.seq_relationship.weight', 'cls.predictions.decoder.weight', 'cls.predictions.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+BERT_Model(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(21128, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (fc): Linear(in_features=768, out_features=192, bias=True)
+  (fc1): Linear(in_features=192, out_features=2, bias=True)
+)
+Epoch [1/50]
+Iter:      0,  Train Loss:  0.69,  Train Acc: 55.86%,  Val Loss:   0.9,  Val Acc: 49.92%,  Time: 0:00:10 *
+Iter:     10,  Train Loss:   0.7,  Train Acc: 48.83%,  Val Loss:  0.69,  Val Acc: 56.78%,  Time: 0:00:23 *
+Iter:     20,  Train Loss:  0.67,  Train Acc: 58.98%,  Val Loss:  0.68,  Val Acc: 58.70%,  Time: 0:00:37 *
+Epoch [2/50]
+Iter:     30,  Train Loss:  0.69,  Train Acc: 52.34%,  Val Loss:  0.68,  Val Acc: 54.48%,  Time: 0:00:45
+Iter:     40,  Train Loss:  0.66,  Train Acc: 59.38%,  Val Loss:  0.69,  Val Acc: 56.40%,  Time: 0:00:54
+Iter:     50,  Train Loss:  0.66,  Train Acc: 60.55%,  Val Loss:  0.65,  Val Acc: 61.78%,  Time: 0:01:06 *
+Epoch [3/50]
+Iter:     60,  Train Loss:  0.66,  Train Acc: 60.94%,  Val Loss:  0.64,  Val Acc: 63.59%,  Time: 0:01:20 *
+Iter:     70,  Train Loss:  0.66,  Train Acc: 58.59%,  Val Loss:  0.66,  Val Acc: 60.57%,  Time: 0:01:28
+Iter:     80,  Train Loss:  0.64,  Train Acc: 64.06%,  Val Loss:  0.65,  Val Acc: 63.26%,  Time: 0:01:37
+Epoch [4/50]
+Iter:     90,  Train Loss:  0.64,  Train Acc: 60.94%,  Val Loss:  0.67,  Val Acc: 56.29%,  Time: 0:01:46
+Iter:    100,  Train Loss:  0.65,  Train Acc: 63.28%,  Val Loss:  0.64,  Val Acc: 63.04%,  Time: 0:01:54
+Iter:    110,  Train Loss:  0.62,  Train Acc: 65.23%,  Val Loss:  0.64,  Val Acc: 63.48%,  Time: 0:02:03
+Epoch [5/50]
+Iter:    120,  Train Loss:  0.63,  Train Acc: 66.41%,  Val Loss:  0.62,  Val Acc: 63.10%,  Time: 0:02:16 *
+Iter:    130,  Train Loss:  0.67,  Train Acc: 55.86%,  Val Loss:  0.62,  Val Acc: 64.20%,  Time: 0:02:31 *
+Epoch [6/50]
+Iter:    140,  Train Loss:  0.62,  Train Acc: 66.80%,  Val Loss:  0.61,  Val Acc: 64.25%,  Time: 0:02:44 *
+Iter:    150,  Train Loss:  0.63,  Train Acc: 64.84%,  Val Loss:  0.63,  Val Acc: 64.58%,  Time: 0:02:52
+Iter:    160,  Train Loss:  0.62,  Train Acc: 60.94%,  Val Loss:  0.66,  Val Acc: 63.76%,  Time: 0:03:01
+Epoch [7/50]
+Iter:    170,  Train Loss:   0.6,  Train Acc: 68.36%,  Val Loss:  0.62,  Val Acc: 66.17%,  Time: 0:03:10
+Iter:    180,  Train Loss:  0.64,  Train Acc: 58.98%,  Val Loss:  0.62,  Val Acc: 65.73%,  Time: 0:03:18
+Iter:    190,  Train Loss:  0.65,  Train Acc: 59.38%,  Val Loss:  0.61,  Val Acc: 64.69%,  Time: 0:03:32 *
+Epoch [8/50]
+Iter:    200,  Train Loss:  0.62,  Train Acc: 62.50%,  Val Loss:  0.65,  Val Acc: 64.03%,  Time: 0:03:40
+Iter:    210,  Train Loss:  0.63,  Train Acc: 65.62%,  Val Loss:  0.61,  Val Acc: 65.35%,  Time: 0:03:53 *
+Iter:    220,  Train Loss:  0.61,  Train Acc: 65.23%,  Val Loss:  0.62,  Val Acc: 66.34%,  Time: 0:04:02
+Epoch [9/50]
+Iter:    230,  Train Loss:  0.62,  Train Acc: 62.11%,  Val Loss:  0.63,  Val Acc: 64.52%,  Time: 0:04:10
+Iter:    240,  Train Loss:  0.62,  Train Acc: 65.62%,  Val Loss:  0.61,  Val Acc: 66.17%,  Time: 0:04:19
+Iter:    250,  Train Loss:  0.62,  Train Acc: 63.67%,  Val Loss:  0.62,  Val Acc: 66.78%,  Time: 0:04:28
+Epoch [10/50]
+Iter:    260,  Train Loss:  0.64,  Train Acc: 62.50%,  Val Loss:  0.62,  Val Acc: 65.95%,  Time: 0:04:36
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 65, in <module>
+    teacher_train(T_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/CV/bilstm/teacher.py", line 65, in teacher_train
+    ids = ids.to(config.device)
+KeyboardInterrupt

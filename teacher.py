@@ -15,7 +15,23 @@ from utils import get_time_dif
 from config import Config
 
 
-def teacher_predict(model, config, loader):
+def teacher_load(model: nn.Module, config: Config):
+    state_dict: OrderedDict[str, Tensor] = torch.load(config.teacher_save_path, map_location=config.device)
+    missing = model.load_state_dict(state_dict, strict=False)
+    if 'fc.weight' in missing:
+        model.fc._from_pretrained(
+            state_dict['fc.weight'].detach().cpu().numpy(),
+            bias_tensor=state_dict['fc.bias'],
+            device=config.device
+        )
+        model.fc1._from_pretrained(
+            state_dict['fc1.weight'].detach().cpu().numpy(),
+            bias_tensor=state_dict['fc1.bias'],
+            device=config.device
+        )
+    return model
+
+def teacher_predict(model: nn.Module, config: Config, loader):
     model.eval()
     model.load_state_dict(torch.load(config.teacher_save_path))
     t_logits = []
@@ -32,7 +48,7 @@ def teacher_predict(model, config, loader):
 def teacher_train(model, config, train_loader, test_loader):
     start_time = time.time()
     model.train()
-    optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
+    optimizer = getattr(torch.optim, config.finetune_optimizer)(model.parameters(), lr=config.finetune_lr)
     # model.load_state_dict(torch.load('data/saved_dict/xlnet.ckpt'))
     total_batch = 0  # 记录进行到多少batch
     dev_best_loss = float('inf')

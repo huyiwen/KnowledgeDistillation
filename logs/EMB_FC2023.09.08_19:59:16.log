@@ -1,0 +1,275 @@
+Config(class_list=('0', '1'),
+       teacher_save_path='saved_dict/t_large_sst2.ckpt',
+       student_save_path='saved_dict/student.ckpt',
+       data='/home/huyiwen/datasets/sst2',
+       seed=42,
+       device=device(type='cuda', index=0),
+       train_teacher=0,
+       train_student=1,
+       require_improvement=1000,
+       num_classes=2,
+       teacher_num_epochs=3,
+       student_num_epochs=3,
+       finetune_optimizer='AdamW',
+       distill_optimizer='AdamW',
+       finetune_batch_size=64,
+       distill_batch_size=64,
+       max_seq_length=50,
+       finetune_lr=0.0005,
+       distill_lr=0.05,
+       bert_path='/home/huyiwen/pretrained/bert',
+       tokenizer=PreTrainedTokenizer(name_or_path='/home/huyiwen/pretrained/bert', vocab_size=21128, model_max_len=1000000000000000019884624838656, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'unk_token': '[UNK]', 'sep_token': '[SEP]', 'pad_token': '[PAD]', 'cls_token': '[CLS]', 'mask_token': '[MASK]'}),
+       bert_hidden_size=1024,
+       LSTM_embedding_dim=300,
+       LSTM_hidden_dim=300,
+       LSTM_bias=True,
+       LSTM_peephole=False,
+       FC_dim=192,
+       use_mpo=True,
+       custom_bilstm=False,
+       mpo_type=['embedding', 'fc'],
+       truncate_num=10000,
+       embedding_input_shape=[19, 4, 2, 7, 20],
+       embedding_output_shape=[10, 3, 1, 1, 10],
+       fc1_input_shape=[10, 2, 1, 3, 10],
+       fc1_output_shape=[6, 2, 1, 2, 8],
+       fc2_input_shape=[6, 2, 1, 2, 8],
+       fc2_output_shape=[2, 1, 1, 1, 1],
+       xh_input_shape=(),
+       xh_output_shape=(),
+       hh_input_shape=(),
+       hh_output_shape=(),
+       loss_align=False,
+       loss_weight=0.5,
+       loss_func='CosineEmbeddingLoss',
+       tfc_input_shape=(),
+       tfc_output_shape=(),
+       tfc1_input_shape=(),
+       tfc1_output_shape=())
+wandb: Currently logged in as: yiwen_hu. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /home/huyiwen/CV/bilstm/wandb/run-20230908_195927-0epqqztm
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run 2023-09-08_19:59:25
+wandb: ⭐️ View project at https://wandb.ai/yiwen_hu/bilstm
+wandb: 🚀 View run at https://wandb.ai/yiwen_hu/bilstm/runs/0epqqztm
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:07
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert were not used when initializing BertModel: ['cls.predictions.bias', 'cls.seq_relationship.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.seq_relationship.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 69, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/CV/bilstm/student.py", line 92, in student_train
+    T_model = teacher_load(T_model, config)
+  File "/home/huyiwen/CV/bilstm/teacher.py", line 24, in teacher_load
+    missing = model.load_state_dict(state_dict, strict=False)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 2152, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for BERT_Model:
+	size mismatch for bert.embeddings.word_embeddings.weight: copying a param with shape torch.Size([30522, 1024]) from checkpoint, the shape in current model is torch.Size([21128, 768]).
+	size mismatch for bert.embeddings.position_embeddings.weight: copying a param with shape torch.Size([512, 1024]) from checkpoint, the shape in current model is torch.Size([512, 768]).
+	size mismatch for bert.embeddings.token_type_embeddings.weight: copying a param with shape torch.Size([2, 1024]) from checkpoint, the shape in current model is torch.Size([2, 768]).
+	size mismatch for bert.embeddings.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.embeddings.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.0.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.0.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.0.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.0.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.0.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.0.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.0.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.0.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.1.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.1.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.1.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.1.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.1.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.1.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.1.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.1.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.2.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.2.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.2.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.2.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.2.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.2.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.2.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.2.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.3.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.3.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.3.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.3.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.3.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.3.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.3.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.3.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.4.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.4.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.4.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.4.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.4.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.4.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.4.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.4.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.5.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.5.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.5.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.5.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.5.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.5.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.5.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.5.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.6.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.6.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.6.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.6.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.6.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.6.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.6.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.6.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.7.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.7.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.7.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.7.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.7.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.7.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.7.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.7.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.8.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.8.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.8.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.8.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.8.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.8.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.8.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.8.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.9.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.9.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.9.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.9.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.9.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.9.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.9.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.9.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.10.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.10.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.10.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.10.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.10.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.10.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.10.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.10.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.attention.self.query.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.11.attention.self.query.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.attention.self.key.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.11.attention.self.key.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.attention.self.value.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.11.attention.self.value.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.attention.output.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.encoder.layer.11.attention.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.attention.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.attention.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.intermediate.dense.weight: copying a param with shape torch.Size([4096, 1024]) from checkpoint, the shape in current model is torch.Size([3072, 768]).
+	size mismatch for bert.encoder.layer.11.intermediate.dense.bias: copying a param with shape torch.Size([4096]) from checkpoint, the shape in current model is torch.Size([3072]).
+	size mismatch for bert.encoder.layer.11.output.dense.weight: copying a param with shape torch.Size([1024, 4096]) from checkpoint, the shape in current model is torch.Size([768, 3072]).
+	size mismatch for bert.encoder.layer.11.output.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.output.LayerNorm.weight: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.encoder.layer.11.output.LayerNorm.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for bert.pooler.dense.weight: copying a param with shape torch.Size([1024, 1024]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for bert.pooler.dense.bias: copying a param with shape torch.Size([1024]) from checkpoint, the shape in current model is torch.Size([768]).
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: 🚀 View run 2023-09-08_19:59:25 at: https://wandb.ai/yiwen_hu/bilstm/runs/0epqqztm
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20230908_195927-0epqqztm/logs

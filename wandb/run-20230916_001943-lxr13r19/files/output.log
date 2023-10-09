@@ -1,0 +1,172 @@
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:15
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert-base-uncased-SST-2 were not used when initializing BertModel: ['classifier.weight', 'classifier.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+BERT_Model(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (fc): Linear(in_features=768, out_features=192, bias=True)
+  (fc1): Linear(in_features=192, out_features=2, bias=True)
+)
+cuda
+biLSTM(
+  (Embedding): Embedding(30522, 300)
+  (lstm): LSTM(300, 300, batch_first=True, bidirectional=True)
+  (fc1): LinearDecomMPO(
+    (tensor_set): ParameterList(
+        (0): Parameter containing: [torch.float32 of size 1x10x6x60 (cuda:0)]
+        (1): Parameter containing: [torch.float32 of size 60x2x2x240 (cuda:0)]
+        (2): Parameter containing: [torch.float32 of size 240x1x1x240 (cuda:0)]
+        (3): Parameter containing: [torch.float32 of size 240x3x2x80 (cuda:0)]
+        (4): Parameter containing: [torch.float32 of size 80x10x8x1 (cuda:0)]
+    )
+  )
+  (fc2): LinearDecomMPO(
+    (tensor_set): ParameterList(
+        (0): Parameter containing: [torch.float32 of size 1x6x2x12 (cuda:0)]
+        (1): Parameter containing: [torch.float32 of size 12x2x1x16 (cuda:0)]
+        (2): Parameter containing: [torch.float32 of size 16x1x1x16 (cuda:0)]
+        (3): Parameter containing: [torch.float32 of size 16x2x1x8 (cuda:0)]
+        (4): Parameter containing: [torch.float32 of size 8x8x1x1 (cuda:0)]
+    )
+  )
+)
+10,843,098 total parameters.
+Epoch [1/30]
+Iter:      0,  Train Loss:   1.8,  Train Acc: 37.50%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:04 *,  LR: 0.049863047384206834
+Iter:     50,  Train Loss:   1.6,  Train Acc: 57.81%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:07 ,  LR: 0.03969463130731262
+Iter:    100,  Train Loss:   1.8,  Train Acc: 46.88%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:10 ,  LR: 0.01483158392310497
+Epoch [2/30]
+Iter:    150,  Train Loss:   1.7,  Train Acc: 57.81%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:13 ,  LR: 0.00013695261579316776
+Iter:    200,  Train Loss:   1.7,  Train Acc: 50.00%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:15 ,  LR: 0.010305368692688577
+Epoch [3/30]
+Iter:    250,  Train Loss:   1.8,  Train Acc: 57.81%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:18 ,  LR: 0.03516841607689565
+Iter:    300,  Train Loss:   1.8,  Train Acc: 64.06%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:21 ,  LR: 0.04986304738421091
+Epoch [4/30]
+Iter:    350,  Train Loss:   1.8,  Train Acc: 37.50%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:23 ,  LR: 0.039694631307315056
+Iter:    400,  Train Loss:   1.9,  Train Acc: 46.88%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:26 ,  LR: 0.014831583923104264
+Epoch [5/30]
+Iter:    450,  Train Loss:   1.9,  Train Acc: 48.44%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:29 ,  LR: 0.00013695261579316776
+Iter:    500,  Train Loss:   1.9,  Train Acc: 42.19%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:32 ,  LR: 0.010305368692687831
+Epoch [6/30]
+Iter:    550,  Train Loss:   1.7,  Train Acc: 54.69%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:34 ,  LR: 0.03516841607689866
+Iter:    600,  Train Loss:   1.7,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:38 ,  LR: 0.04986304738421189
+Iter:    650,  Train Loss:   1.7,  Train Acc: 60.94%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:41 ,  LR: 0.039694631307311004
+Epoch [7/30]
+Iter:    700,  Train Loss:   1.8,  Train Acc: 51.56%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:43 ,  LR: 0.014831583923106802
+Iter:    750,  Train Loss:   1.8,  Train Acc: 46.88%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:46 ,  LR: 0.00013695261579316776
+Epoch [8/30]
+Iter:    800,  Train Loss:   1.8,  Train Acc: 45.31%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:49 ,  LR: 0.010305368692690844
+Iter:    850,  Train Loss:   1.9,  Train Acc: 43.75%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:52 *,  LR: 0.035168416076899196
+Epoch [9/30]
+Iter:    900,  Train Loss:   1.5,  Train Acc: 57.81%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:55 ,  LR: 0.04986304738420687
+Iter:    950,  Train Loss:   1.7,  Train Acc: 43.75%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:00:58 ,  LR: 0.03969463130730601
+Epoch [10/30]
+Iter:   1000,  Train Loss:   1.7,  Train Acc: 45.31%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:01 ,  LR: 0.014831583923105133
+Iter:   1050,  Train Loss:   1.8,  Train Acc: 48.44%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:04 ,  LR: 0.00013695261579316776
+Epoch [11/30]
+Iter:   1100,  Train Loss:   1.8,  Train Acc: 43.75%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:07 ,  LR: 0.01030536869268977
+Iter:   1150,  Train Loss:   1.6,  Train Acc: 53.12%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:09 ,  LR: 0.03516841607689586
+Epoch [12/30]
+Iter:   1200,  Train Loss:   1.8,  Train Acc: 53.12%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:12 ,  LR: 0.049863047384214924
+Iter:   1250,  Train Loss:   1.7,  Train Acc: 48.44%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:14 ,  LR: 0.039694631307312295
+Iter:   1300,  Train Loss:   1.9,  Train Acc: 42.19%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:17 ,  LR: 0.01483158392310376
+Epoch [13/30]
+Iter:   1350,  Train Loss:   1.9,  Train Acc: 42.19%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:20 ,  LR: 0.00013695261579316776
+Iter:   1400,  Train Loss:   1.9,  Train Acc: 46.88%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:23 ,  LR: 0.010305368692691594
+Epoch [14/30]
+Iter:   1450,  Train Loss:   1.8,  Train Acc: 53.12%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:25 ,  LR: 0.03516841607690173
+Iter:   1500,  Train Loss:   1.8,  Train Acc: 51.56%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:28 ,  LR: 0.049863047384208874
+Epoch [15/30]
+Iter:   1550,  Train Loss:   1.8,  Train Acc: 46.88%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:31 ,  LR: 0.039694631307308964
+Iter:   1600,  Train Loss:   1.7,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:34 ,  LR: 0.014831583923109569
+Epoch [16/30]
+Iter:   1650,  Train Loss:   1.8,  Train Acc: 62.50%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:37 ,  LR: 0.00013695261579316776
+Iter:   1700,  Train Loss:   1.7,  Train Acc: 50.00%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:40 ,  LR: 0.010305368692690432
+Epoch [17/30]
+Iter:   1750,  Train Loss:   1.7,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:43 ,  LR: 0.035168416076916585
+Iter:   1800,  Train Loss:   1.9,  Train Acc: 53.12%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:46 ,  LR: 0.04986304738420382
+Iter:   1850,  Train Loss:   1.9,  Train Acc: 54.69%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:48 ,  LR: 0.03969463130730366
+Epoch [18/30]
+Iter:   1900,  Train Loss:   1.4,  Train Acc: 62.50%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:51 ,  LR: 0.01483158392310724
+Iter:   1950,  Train Loss:   1.8,  Train Acc: 51.56%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:54 ,  LR: 0.00013695261579316776
+Epoch [19/30]
+Iter:   2000,  Train Loss:   1.8,  Train Acc: 48.44%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:56 ,  LR: 0.010305368692689061
+Iter:   2050,  Train Loss:   1.9,  Train Acc: 48.44%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:01:58 ,  LR: 0.03516841607691215
+Epoch [20/30]
+Iter:   2100,  Train Loss:   1.8,  Train Acc: 46.88%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:02 ,  LR: 0.04986304738419771
+Iter:   2150,  Train Loss:   1.7,  Train Acc: 48.44%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:05 ,  LR: 0.03969463130732068
+Epoch [21/30]
+Iter:   2200,  Train Loss:   1.7,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:08 ,  LR: 0.014831583923105877
+Iter:   2250,  Train Loss:   1.7,  Train Acc: 43.75%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:11 ,  LR: 0.00013695261579316776
+Epoch [22/30]
+Iter:   2300,  Train Loss:   1.8,  Train Acc: 45.31%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:13 ,  LR: 0.010305368692693906
+Iter:   2350,  Train Loss:   1.6,  Train Acc: 40.62%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:16 ,  LR: 0.03516841607690846
+Epoch [23/30]
+Iter:   2400,  Train Loss:   1.9,  Train Acc: 51.56%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:19 ,  LR: 0.04986304738421892
+Iter:   2450,  Train Loss:   1.6,  Train Acc: 57.81%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:22 ,  LR: 0.039694631307316784
+Iter:   2500,  Train Loss:   1.9,  Train Acc: 51.56%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:25 ,  LR: 0.01483158392311167
+Epoch [24/30]
+Iter:   2550,  Train Loss:   1.9,  Train Acc: 53.12%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:28 ,  LR: 0.00013695261579316776
+Iter:   2600,  Train Loss:   1.7,  Train Acc: 59.38%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:31 ,  LR: 0.01030536869268653
+Epoch [25/30]
+Iter:   2650,  Train Loss:   1.9,  Train Acc: 50.00%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:34 ,  LR: 0.035168416076905365
+Iter:   2700,  Train Loss:   1.5,  Train Acc: 54.69%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:38 ,  LR: 0.04986304738418672
+Epoch [26/30]
+Iter:   2750,  Train Loss:   1.7,  Train Acc: 45.31%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:41 ,  LR: 0.039694631307310914
+Iter:   2800,  Train Loss:   1.7,  Train Acc: 54.69%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:44 ,  LR: 0.01483158392311031
+Epoch [27/30]
+Iter:   2850,  Train Loss:   1.7,  Train Acc: 54.69%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:46 ,  LR: 0.00013695261579316776
+Iter:   2900,  Train Loss:   1.7,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:50 ,  LR: 0.01030536869269758
+Epoch [28/30]
+Iter:   2950,  Train Loss:   1.6,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:53 ,  LR: 0.03516841607690035
+Iter:   3000,  Train Loss:   1.7,  Train Acc: 45.31%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:56 ,  LR: 0.0498630473842351
+Iter:   3050,  Train Loss:   1.5,  Train Acc: 53.12%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:02:59 ,  LR: 0.03969463130735082
+Epoch [29/30]
+Iter:   3100,  Train Loss:   2.0,  Train Acc: 51.56%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:03:02 ,  LR: 0.014831583923094001
+Iter:   3150,  Train Loss:   1.8,  Train Acc: 45.31%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:03:05 ,  LR: 0.00013695261579316776
+Epoch [30/30]
+Iter:   3200,  Train Loss:   1.9,  Train Acc: 56.25%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:03:08 ,  LR: 0.010305368692683997
+Iter:   3250,  Train Loss:   1.7,  Train Acc: 50.00%,  Val Loss:   1.7,  Val Acc: 49.92%,  Time: 0:03:12 ,  LR: 0.035168416076897226

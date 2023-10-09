@@ -1,0 +1,12 @@
+
+加载数据...
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 54, in <module>
+    cfg.tokenizer.decode(next(iter(train_loader))[0])
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 3436, in decode
+    return self._decode(
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 931, in _decode
+    filtered_tokens = self.convert_ids_to_tokens(token_ids, skip_special_tokens=skip_special_tokens)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/tokenization_utils.py", line 906, in convert_ids_to_tokens
+    index = int(index)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'list'

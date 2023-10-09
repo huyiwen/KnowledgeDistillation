@@ -1,0 +1,248 @@
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:11
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert-base-uncased-SST-2 were not used when initializing BertModel: ['classifier.bias', 'classifier.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+BERT_Model(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (fc): Linear(in_features=768, out_features=192, bias=True)
+  (fc1): Linear(in_features=192, out_features=2, bias=True)
+)
+cuda
+biLSTM(
+  (Embedding): Embedding(30522, 300)
+  (lstm): LSTM(300, 300, batch_first=True, bidirectional=True)
+  (fc1): LinearDecomMPO(
+    mpo=True, in_features=600, out_features=192, bias=True
+    (tensor_set): ParameterList(
+        (0): Parameter containing: [torch.float32 of size 1x10x6x60 (cuda:0)]
+        (1): Parameter containing: [torch.float32 of size 60x2x2x240 (cuda:0)]
+        (2): Parameter containing: [torch.float32 of size 240x1x1x240 (cuda:0)]
+        (3): Parameter containing: [torch.float32 of size 240x3x2x80 (cuda:0)]
+        (4): Parameter containing: [torch.float32 of size 80x10x8x1 (cuda:0)]
+    )
+  )
+  (fc2): LinearDecomMPO(
+    mpo=True, in_features=192, out_features=2, bias=True
+    (tensor_set): ParameterList(
+        (0): Parameter containing: [torch.float32 of size 1x6x2x12 (cuda:0)]
+        (1): Parameter containing: [torch.float32 of size 12x2x1x16 (cuda:0)]
+        (2): Parameter containing: [torch.float32 of size 16x1x1x16 (cuda:0)]
+        (3): Parameter containing: [torch.float32 of size 16x2x1x8 (cuda:0)]
+        (4): Parameter containing: [torch.float32 of size 8x8x1x1 (cuda:0)]
+    )
+  )
+)
+10,843,098 total parameters.
+Epoch [1/30]
+base_loss tensor(25.5383, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3900.4453, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(829785.8750, device='cuda:0') distillation_loss tensor(2.9931e+12, device='cuda:0')
+base_loss tensor(479046.8750, device='cuda:0') distillation_loss tensor(3.5927e+12, device='cuda:0')
+base_loss tensor(888709., device='cuda:0') distillation_loss tensor(3.4348e+12, device='cuda:0')
+base_loss tensor(655465.2500, device='cuda:0') distillation_loss tensor(3.6286e+12, device='cuda:0')
+base_loss tensor(630620.3125, device='cuda:0') distillation_loss tensor(3.0379e+12, device='cuda:0')
+base_loss tensor(835514.0625, device='cuda:0') distillation_loss tensor(3.4002e+12, device='cuda:0')
+base_loss tensor(678707.7500, device='cuda:0') distillation_loss tensor(3.0710e+12, device='cuda:0')
+base_loss tensor(680659.3125, device='cuda:0') distillation_loss tensor(3.4901e+12, device='cuda:0')
+base_loss tensor(573490.7500, device='cuda:0') distillation_loss tensor(3.2608e+12, device='cuda:0')
+base_loss tensor(728297.7500, device='cuda:0') distillation_loss tensor(3.7246e+12, device='cuda:0')
+base_loss tensor(802514.5625, device='cuda:0') distillation_loss tensor(2.9283e+12, device='cuda:0')
+base_loss tensor(676069.8125, device='cuda:0') distillation_loss tensor(2.7696e+12, device='cuda:0')
+base_loss tensor(909140.2500, device='cuda:0') distillation_loss tensor(3.4511e+12, device='cuda:0')
+base_loss tensor(747770.9375, device='cuda:0') distillation_loss tensor(3.2634e+12, device='cuda:0')
+base_loss tensor(735689.8125, device='cuda:0') distillation_loss tensor(3.3946e+12, device='cuda:0')
+base_loss tensor(893029.6875, device='cuda:0') distillation_loss tensor(3.0889e+12, device='cuda:0')
+base_loss tensor(582716.6250, device='cuda:0') distillation_loss tensor(3.2155e+12, device='cuda:0')
+base_loss tensor(606453.0625, device='cuda:0') distillation_loss tensor(3.1236e+12, device='cuda:0')
+base_loss tensor(522028.5000, device='cuda:0') distillation_loss tensor(3.7177e+12, device='cuda:0')
+base_loss tensor(749839., device='cuda:0') distillation_loss tensor(3.2153e+12, device='cuda:0')
+base_loss tensor(667138.1250, device='cuda:0') distillation_loss tensor(3.0430e+12, device='cuda:0')
+base_loss tensor(854890.1875, device='cuda:0') distillation_loss tensor(3.3123e+12, device='cuda:0')
+base_loss tensor(700364.2500, device='cuda:0') distillation_loss tensor(3.1367e+12, device='cuda:0')
+base_loss tensor(713537.9375, device='cuda:0') distillation_loss tensor(2.8862e+12, device='cuda:0')
+base_loss tensor(544271.3750, device='cuda:0') distillation_loss tensor(3.7421e+12, device='cuda:0')
+base_loss tensor(682815.6250, device='cuda:0') distillation_loss tensor(2.7972e+12, device='cuda:0')
+base_loss tensor(999285., device='cuda:0') distillation_loss tensor(3.5478e+12, device='cuda:0')
+base_loss tensor(672539.3750, device='cuda:0') distillation_loss tensor(3.4582e+12, device='cuda:0')
+base_loss tensor(546162.1250, device='cuda:0') distillation_loss tensor(3.1656e+12, device='cuda:0')
+Iter:      0,  Train Loss: 7.8e+03,  Train Acc: 37.50%,  Val Loss: 6.5e+12,  Val Acc: 50.74%,  Time: 0:00:06 *,  LR: [0.4986304738420683]
+base_loss tensor(745956.6250, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.9853e+12, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(39421484., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.4666e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.5205e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.3384e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5.0305e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(7.7985e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4.6678e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.6289e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(7.1023e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.1386e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.3731e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.6236e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.3186e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.1707e+21, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.3486e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.4753e+20, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.0596e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.3584e+20, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(9.6242e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.6409e+20, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.5494e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(9.5254e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(6.9121e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(8.4965e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.5103e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.8084e+19, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.1668e+09, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(9.8966e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(6.4703e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.8478e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(9.8451e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(5.5896e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5.6199e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.9760e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(7.2945e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.7708e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5.6604e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.1788e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.8471e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.8917e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.4962e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.3499e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(3.6830e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.1626e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4.2624e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.4259e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4.5096e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.6837e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.6839e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(8.2002e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(3.8848e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.4919e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5.7406e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.5121e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.0671e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.5551e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(3.3541e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(8.9721e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.8511e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.0545e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.3837e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(8.4769e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.9960e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.4525e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.8236e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(8.6837e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.2277e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.7040e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.7702e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.1936e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.3355e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.8911e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.7337e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.4085e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.8150e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.1893e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.9251e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.9156e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.4628e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.2618e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.1774e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.8317e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.9604e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.6761e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(3.2649e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.2626e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.5453e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.1652e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.3498e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(9.1432e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2.1339e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.4629e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(95153608., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.5185e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.1004e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(9.5641e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(49950200., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.2114e+18, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(81742248., device='cuda:0') distillation_loss tensor(4.9889e+17, device='cuda:0')
+base_loss tensor(1.1567e+08, device='cuda:0') distillation_loss tensor(4.0618e+17, device='cuda:0')
+base_loss tensor(1.1557e+08, device='cuda:0') distillation_loss tensor(4.2278e+17, device='cuda:0')
+base_loss tensor(1.0935e+08, device='cuda:0') distillation_loss tensor(3.5003e+17, device='cuda:0')
+base_loss tensor(77438328., device='cuda:0') distillation_loss tensor(4.3172e+17, device='cuda:0')
+base_loss tensor(1.1077e+08, device='cuda:0') distillation_loss tensor(4.2761e+17, device='cuda:0')
+base_loss tensor(1.0143e+08, device='cuda:0') distillation_loss tensor(4.6767e+17, device='cuda:0')
+base_loss tensor(99436232., device='cuda:0') distillation_loss tensor(4.1818e+17, device='cuda:0')
+base_loss tensor(62430260., device='cuda:0') distillation_loss tensor(3.6644e+17, device='cuda:0')
+base_loss tensor(1.0947e+08, device='cuda:0') distillation_loss tensor(3.9094e+17, device='cuda:0')
+base_loss tensor(1.9323e+08, device='cuda:0') distillation_loss tensor(8.0950e+17, device='cuda:0')
+base_loss tensor(1.0409e+08, device='cuda:0') distillation_loss tensor(4.0383e+17, device='cuda:0')
+base_loss tensor(81683936., device='cuda:0') distillation_loss tensor(3.7795e+17, device='cuda:0')
+base_loss tensor(1.0374e+08, device='cuda:0') distillation_loss tensor(3.8666e+17, device='cuda:0')
+base_loss tensor(1.0427e+08, device='cuda:0') distillation_loss tensor(4.9278e+17, device='cuda:0')
+base_loss tensor(91609272., device='cuda:0') distillation_loss tensor(3.6103e+17, device='cuda:0')
+base_loss tensor(1.4530e+08, device='cuda:0') distillation_loss tensor(4.4520e+17, device='cuda:0')
+base_loss tensor(84361600., device='cuda:0') distillation_loss tensor(4.1860e+17, device='cuda:0')
+base_loss tensor(1.0069e+08, device='cuda:0') distillation_loss tensor(4.7541e+17, device='cuda:0')
+base_loss tensor(1.1494e+08, device='cuda:0') distillation_loss tensor(3.6178e+17, device='cuda:0')
+base_loss tensor(63537164., device='cuda:0') distillation_loss tensor(3.5651e+17, device='cuda:0')
+base_loss tensor(79284816., device='cuda:0') distillation_loss tensor(4.2480e+17, device='cuda:0')
+base_loss tensor(94185712., device='cuda:0') distillation_loss tensor(4.0163e+17, device='cuda:0')
+base_loss tensor(89045840., device='cuda:0') distillation_loss tensor(4.4647e+17, device='cuda:0')
+base_loss tensor(1.0453e+08, device='cuda:0') distillation_loss tensor(5.1580e+17, device='cuda:0')
+base_loss tensor(68753656., device='cuda:0') distillation_loss tensor(4.1171e+17, device='cuda:0')
+base_loss tensor(95046712., device='cuda:0') distillation_loss tensor(4.3073e+17, device='cuda:0')
+base_loss tensor(58214940., device='cuda:0') distillation_loss tensor(3.5911e+17, device='cuda:0')
+base_loss tensor(17462730., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(7.3566e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+Iter:     50,  Train Loss: 4.4e+18,  Train Acc: 42.19%,  Val Loss: 8.6e+17,  Val Acc: 49.70%,  Time: 0:00:11 ,  LR: [0.39694631307312617]
+base_loss tensor(86406880., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.9820e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1.0713e+08, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.1684e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(28413344., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(8.4901e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4713700.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.7970e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(10493623., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.3679e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(6954851., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.0357e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(9571658., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(7.0555e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(11020843., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.0210e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(19643968., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.8817e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(9187869., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.3861e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5872870.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.5202e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(6510624.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.0032e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(32310288., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.0261e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(10226907., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.2599e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(13587851., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.0334e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(11187359., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.1386e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(80338496., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.3374e+17, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(10693877., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.5110e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5854849.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.0484e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(34303732., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.2330e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(12402688., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.3067e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4254078.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.6329e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(9811606., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.9173e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(6782735.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.1640e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(2860272.7500, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(7.4500e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(1241047.8750, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.3923e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5686730.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.0828e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(13239398., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.4495e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(19379076., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(5.4495e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(3711939.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(2.4958e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(8674320., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(3.5450e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(17462730., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(7.3566e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(5463248.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(7.1499e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 72, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/CV/bilstm/student.py", line 117, in student_train
+    loss = get_loss(t_train_outputs[i], s_outputs, label.long(), 1, 2, config.loss_align, config.loss_func, config.loss_weight)
+  File "/home/huyiwen/CV/bilstm/student.py", line 87, in get_loss
+    print("base_loss", base_loss, "distillation_loss", distillation_loss)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/_tensor.py", line 431, in __repr__
+    return torch._tensor_str._str(self, tensor_contents=tensor_contents)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/_tensor_str.py", line 664, in _str
+    return _str_intern(self, tensor_contents=tensor_contents)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/_tensor_str.py", line 595, in _str_intern
+    tensor_str = _tensor_str(self, indent)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/_tensor_str.py", line 347, in _tensor_str
+    formatter = _Formatter(get_summarized_data(self) if summarize else self)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/_tensor_str.py", line 137, in __init__
+    nonzero_finite_vals = torch.masked_select(
+base_loss tensor(3155569.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.5680e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(8054458., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.1373e+16, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4344050., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.2134e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4107671.2500, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(4.8268e+14, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4200911., device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(1.9454e+15, device='cuda:0', grad_fn=<MseLossBackward0>)
+base_loss tensor(4633486.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss
+base_loss tensor(3155569.5000, device='cuda:0', grad_fn=<NllLossBackward0>) distillation_loss tensor(6.5680e+14, device='cuda:0', grad_fn=<MseLossBackward0>)

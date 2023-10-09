@@ -1,6 +1,3 @@
 nohup.out
-saved_dict/
-models/
+saved_dict/*
 __pycache__/
-BARK_TOKEN
-bert_pretrain/

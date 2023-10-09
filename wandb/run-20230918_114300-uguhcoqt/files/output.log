@@ -1,0 +1,94 @@
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:15
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert-base-uncased-SST-2 were not used when initializing BertModel: ['classifier.weight', 'classifier.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+BERT_Model(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (fc): Linear(in_features=768, out_features=192, bias=True)
+  (fc1): Linear(in_features=192, out_features=2, bias=True)
+)
+Epoch [1/1]
+Iter:      0,  Train Loss:  0.73,  Train Acc: 51.56%,  Val Loss:  0.37,  Val Acc: 93.08%,  Time: 0:00:23 *
+Iter:     10,  Train Loss: 0.0015,  Train Acc: 100.00%,  Val Loss:  0.31,  Val Acc: 92.59%,  Time: 0:00:40 *
+Iter:     20,  Train Loss:  0.11,  Train Acc: 98.44%,  Val Loss:  0.35,  Val Acc: 92.53%,  Time: 0:00:51
+Iter:     30,  Train Loss:  0.09,  Train Acc: 98.44%,  Val Loss:  0.33,  Val Acc: 92.64%,  Time: 0:00:58
+Iter:     40,  Train Loss:  0.11,  Train Acc: 96.88%,  Val Loss:  0.28,  Val Acc: 92.70%,  Time: 0:01:16 *
+Iter:     50,  Train Loss: 0.065,  Train Acc: 98.44%,  Val Loss:  0.22,  Val Acc: 92.48%,  Time: 0:01:33 *
+Iter:     60,  Train Loss: 0.038,  Train Acc: 98.44%,  Val Loss:  0.25,  Val Acc: 92.70%,  Time: 0:01:45
+Iter:     70,  Train Loss: 0.0025,  Train Acc: 100.00%,  Val Loss:  0.24,  Val Acc: 92.59%,  Time: 0:01:52
+Iter:     80,  Train Loss:  0.12,  Train Acc: 93.75%,  Val Loss:   0.2,  Val Acc: 92.70%,  Time: 0:02:09 *
+Iter:     90,  Train Loss: 0.065,  Train Acc: 98.44%,  Val Loss:  0.22,  Val Acc: 92.64%,  Time: 0:02:20
+Iter:    100,  Train Loss: 0.031,  Train Acc: 98.44%,  Val Loss:  0.24,  Val Acc: 92.75%,  Time: 0:02:28
+Test Loss:  0.25,  Test Acc: 92.86%
+Precision, Recall and F1-Score...
+              precision    recall  f1-score   support
+           0     0.9433    0.9123    0.9275       912
+           1     0.9148    0.9450    0.9297       909
+    accuracy                         0.9286      1821
+   macro avg     0.9291    0.9286    0.9286      1821
+weighted avg     0.9291    0.9286    0.9286      1821
+Confusion Matrix...
+[[832  80]
+ [ 50 859]]
+Time usage: 0:00:09
+cuda
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 70, in <module>
+    S_model = biLSTM(cfg).to(cfg.device)
+  File "/home/huyiwen/CV/bilstm/models/lstm_mpo.py", line 150, in __init__
+    self.Embedding = EmbeddingMPO(config.tokenizer.vocab_size, config.LSTM_embedding_dim, *self.embedding_mpo_config)
+  File "/home/huyiwen/CV/bilstm/models/linear_mpo_.py", line 436, in __init__
+    self._from_pretrained(_embedding.weight.data.cpu().numpy(), device=device)
+  File "/home/huyiwen/CV/bilstm/models/linear_mpo_.py", line 446, in _from_pretrained
+    tensor_set, _, _ = self.mpo.matrix2mpo(weight)
+  File "/home/huyiwen/CV/bilstm/models/linear_mpo_.py", line 258, in matrix2mpo
+    left_canonical_tensor = self.left_canonical(tensor_set)
+  File "/home/huyiwen/CV/bilstm/models/linear_mpo_.py", line 154, in left_canonical
+    u,lamda,v = np.linalg.svd(mat, full_matrices=False)
+  File "<__array_function__ internals>", line 180, in svd
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/numpy/linalg/linalg.py", line 1657, in svd
+    u, s, vh = gufunc(a, signature=signature, extobj=extobj)
+KeyboardInterrupt

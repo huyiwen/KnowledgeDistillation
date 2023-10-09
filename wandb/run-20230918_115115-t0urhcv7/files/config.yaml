@@ -1,0 +1,218 @@
+wandb_version: 1
+
+class_list:
+  desc: null
+  value:
+  - '0'
+  - '1'
+teacher_save_path:
+  desc: null
+  value: saved_dict/new_teacher_base1_sst2.ckpt
+student_save_path:
+  desc: null
+  value: saved_dict/student.ckpt
+data:
+  desc: null
+  value: /home/huyiwen/datasets/sst2
+seed:
+  desc: null
+  value: 42
+device:
+  desc: null
+  value: cuda
+train_teacher:
+  desc: null
+  value: 0
+train_student:
+  desc: null
+  value: 1
+require_improvement:
+  desc: null
+  value: 1000
+num_classes:
+  desc: null
+  value: 2
+teacher_num_epochs:
+  desc: null
+  value: 1
+student_num_epochs:
+  desc: null
+  value: 30
+finetune_optimizer:
+  desc: null
+  value: AdamW
+distill_optimizer:
+  desc: null
+  value: SGD
+finetune_batch_size:
+  desc: null
+  value: 64
+distill_batch_size:
+  desc: null
+  value: 64
+max_seq_length:
+  desc: null
+  value: 128
+finetune_lr:
+  desc: null
+  value: 0.0005
+distill_lr:
+  desc: null
+  value: 0.1
+bert_path:
+  desc: null
+  value: /home/huyiwen/pretrained/bert-base-uncased-SST-2
+tokenizer:
+  desc: null
+  value: 'PreTrainedTokenizer(name_or_path=''/home/huyiwen/pretrained/bert-base-uncased-SST-2'',
+    vocab_size=30522, model_max_len=512, is_fast=False, padding_side=''right'', truncation_side=''right'',
+    special_tokens={''unk_token'': ''[UNK]'', ''sep_token'': ''[SEP]'', ''pad_token'':
+    ''[PAD]'', ''cls_token'': ''[CLS]'', ''mask_token'': ''[MASK]''})'
+bert_hidden_size:
+  desc: null
+  value: 768
+LSTM_embedding_dim:
+  desc: null
+  value: 300
+LSTM_hidden_dim:
+  desc: null
+  value: 300
+LSTM_bias:
+  desc: null
+  value: true
+LSTM_peephole:
+  desc: null
+  value: false
+FC_dim:
+  desc: null
+  value: 192
+use_mpo:
+  desc: null
+  value: false
+custom_bilstm:
+  desc: null
+  value: false
+mpo_type:
+  desc: null
+  value:
+  - embedding
+truncate_num:
+  desc: null
+  value: 10000
+embedding_input_shape:
+  desc: null
+  value:
+  - 19
+  - 4
+  - 2
+  - 7
+  - 20
+embedding_output_shape:
+  desc: null
+  value:
+  - 10
+  - 3
+  - 1
+  - 1
+  - 10
+fc1_input_shape:
+  desc: null
+  value:
+  - 10
+  - 2
+  - 1
+  - 3
+  - 10
+fc1_output_shape:
+  desc: null
+  value:
+  - 6
+  - 2
+  - 1
+  - 2
+  - 8
+fc2_input_shape:
+  desc: null
+  value:
+  - 6
+  - 2
+  - 1
+  - 2
+  - 8
+fc2_output_shape:
+  desc: null
+  value:
+  - 2
+  - 1
+  - 1
+  - 1
+  - 1
+xh_input_shape:
+  desc: null
+  value: []
+xh_output_shape:
+  desc: null
+  value: []
+hh_input_shape:
+  desc: null
+  value: []
+hh_output_shape:
+  desc: null
+  value: []
+loss_align:
+  desc: null
+  value: false
+loss_weight:
+  desc: null
+  value: 0.5
+loss_func:
+  desc: null
+  value: CosineEmbeddingLoss
+tfc_input_shape:
+  desc: null
+  value: []
+tfc_output_shape:
+  desc: null
+  value: []
+tfc1_input_shape:
+  desc: null
+  value: []
+tfc1_output_shape:
+  desc: null
+  value: []
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.9
+    cli_version: 0.15.10
+    framework: huggingface
+    huggingface_version: 4.24.0
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1695009075.207425
+    t:
+      1:
+      - 1
+      - 5
+      - 11
+      - 49
+      - 51
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 11
+      - 49
+      - 51
+      - 53
+      - 55
+      3:
+      - 13
+      - 16
+      - 23
+      4: 3.10.9
+      5: 0.15.10
+      6: 4.24.0
+      8:
+      - 5

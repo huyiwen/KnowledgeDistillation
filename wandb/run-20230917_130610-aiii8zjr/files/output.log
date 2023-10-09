@@ -1,0 +1,29 @@
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:15
+Traceback (most recent call last):
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/configuration_utils.py", line 614, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/utils/hub.py", line 409, in cached_file
+    resolved_file = hf_hub_download(
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 110, in _inner_fn
+    validate_repo_id(arg_value)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 158, in validate_repo_id
+    raise HFValidationError(
+huggingface_hub.utils._validators.HFValidationError: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/home/huyiwen/pretrained/bert-large-uncased-sst2'. Use `repo_type` argument if needed.
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 61, in <module>
+    T_model = BERT_Model(cfg).to(cfg.device)
+  File "/home/huyiwen/CV/bilstm/models/bert.py", line 14, in __init__
+    self.bert = AutoModel.from_pretrained(config.bert_path)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 434, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 776, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/configuration_utils.py", line 559, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/transformers/configuration_utils.py", line 635, in _get_config_dict
+    raise EnvironmentError(
+OSError: Can't load the configuration of '/home/huyiwen/pretrained/bert-large-uncased-sst2'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/home/huyiwen/pretrained/bert-large-uncased-sst2' is the correct path to a directory containing a config.json file

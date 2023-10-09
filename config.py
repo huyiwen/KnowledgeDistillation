@@ -15,30 +15,38 @@ from datargs import arg
 @dataclass
 class Config(object):
 
-    class_list: List[str] = arg(default=map(lambda x: x.strip(), open('data/class_multi1.txt').readlines()))
-    train_path: str = 'data/train.json'
-    test_path: str = 'data/test.json'
-    teacher_save_path: str = 'saved_dict/teacher.ckpt'        # 模型训练结果
-    student_save_path: str = 'saved_dict/student.ckpt'        # 模型训练结果
+    class_list: List[str] = ('0', '1')
+    teacher_save_path: str = 'saved_dict/teacher.ckpt'
+    student_save_path: str = 'saved_dict/student.ckpt'
+    data: str = "/home/huyiwen/datasets/sst2"
+    seed: int = 42
 
-    device: torch.DeviceObjType = torch.device('cuda' if torch.cuda.is_available() else 'cpu')   # 设备
+    device: torch.DeviceObjType = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     train_teacher: int = 0
     train_student: int = 1
-    require_improvement: int = 1000                           # 若超过1000batch效果还没提升，则提前结束训练
-    num_classes: int = arg(default=len(open('data/class_multi1.txt').readlines()))
-    teacher_num_epochs: int = 3                               # epoch数
-    student_num_epochs: int = 3                               # epoch数
+    require_improvement: int = 1000
+    num_classes: int = 2
+    teacher_num_epochs: int = 3
+    student_num_epochs: int = 3
+    finetune_optimizer: str = 'AdamW'
+    distill_optimizer: str = arg(default='AdamW', aliases=['--opt'])
 
-    batch_size: int = 64                                      # 128mini-batch大小
-    pad_size: int = 32                                        # 每句话处理成的长度(短填长切)
-    learning_rate: float = 5e-4                                 # 学习率
-    bert_path: str = './bert_pretrain'
+    finetune_batch_size: int = 64
+    distill_batch_size: int = 64
+    max_seq_length: int = 128
+    finetune_lr: float = 5e-4
+    distill_lr: float = arg(default=0.001, aliases=['--lr'])
+    mpo_lr: float = 0.0002
+    bert_path: str = '/home/huyiwen/pretrained/bert-base-uncased-SST-2'
     tokenizer: BertTokenizer = BertTokenizer.from_pretrained(bert_path)
-    hidden_size: int = 768
+    bert_hidden_size: int = 768
 
+    LSTM_embedding_dim: int = 300
+    LSTM_hidden_dim: int = 300
     LSTM_bias: bool = True
     LSTM_peephole: bool = False
+    FC_dim: int = 192
 
     use_mpo: bool = False
     mpo_type: List[str] = arg(default=("fc", "lstm", "embedding"))

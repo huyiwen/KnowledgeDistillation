@@ -1,0 +1,173 @@
+加载数据...
+['a stirring , funny and finally transporting re-imagining of beauty and the beast and 1930s horror films', 'apparently reassembled from the cutting-room floor of any given daytime soap .', "they presume their audience wo n't sit still for a sociology lesson , however entertainingly presented , so they trot out the conventional science-fiction elements of bug-eyed monsters and futuristic women in skimpy clothes .", 'this is a visually stunning rumination on love , memory , history and the war between art and commerce .', "jonathan parker 's bartleby should have been the be-all-end-all of the modern-office anomie films ."]
+[1, 0, 0, 1, 1]
+Time usage: 0:00:11
+Some weights of the model checkpoint at /home/huyiwen/pretrained/bert-base-uncased-SST-2 were not used when initializing BertModel: ['classifier.bias', 'classifier.weight']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+BERT_Model(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (fc): Linear(in_features=768, out_features=192, bias=True)
+  (fc1): Linear(in_features=192, out_features=2, bias=True)
+)
+cuda
+biLSTM(
+  (Embedding): Embedding(30522, 300)
+  (lstm): LSTM(300, 300, batch_first=True, bidirectional=True)
+  (fc1): LinearDecomMPO(
+    mpo=True, in_features=600, out_features=192, bias=True
+    (tensor_set): ParameterList(
+        (0): Parameter containing: [torch.float32 of size 1x10x6x60 (cuda:0)]
+        (1): Parameter containing: [torch.float32 of size 60x2x2x240 (cuda:0)]
+        (2): Parameter containing: [torch.float32 of size 240x1x1x240 (cuda:0)]
+        (3): Parameter containing: [torch.float32 of size 240x3x2x80 (cuda:0)]
+        (4): Parameter containing: [torch.float32 of size 80x10x8x1 (cuda:0)]
+    )
+  )
+  (fc2): LinearDecomMPO(
+    mpo=True, in_features=192, out_features=2, bias=True
+    (tensor_set): ParameterList(
+        (0): Parameter containing: [torch.float32 of size 1x6x2x12 (cuda:0)]
+        (1): Parameter containing: [torch.float32 of size 12x2x1x16 (cuda:0)]
+        (2): Parameter containing: [torch.float32 of size 16x1x1x16 (cuda:0)]
+        (3): Parameter containing: [torch.float32 of size 16x2x1x8 (cuda:0)]
+        (4): Parameter containing: [torch.float32 of size 8x8x1x1 (cuda:0)]
+    )
+  )
+)
+10,843,098 total parameters.
+Epoch [1/30]
+/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/loss.py:535: UserWarning: Using a target size (torch.Size([64, 2])) that is different to the input size (torch.Size([64])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+Traceback (most recent call last):
+  File "/home/huyiwen/CV/bilstm/distill.py", line 72, in <module>
+    student_train(T_model, S_model, cfg, train_loader, test_loader)
+  File "/home/huyiwen/CV/bilstm/student.py", line 119, in student_train
+    loss = get_loss(t_train_outputs[i], s_outputs, label.long(), 1, 2, config.loss_align, config.loss_func, config.loss_weight)
+  File "/home/huyiwen/CV/bilstm/student.py", line 88, in get_loss
+    distillation_loss = loss2(t_logits, s_logits)  # MSELoss
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/modules/loss.py", line 535, in forward
+    return F.mse_loss(input, target, reduction=self.reduction)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/nn/functional.py", line 3328, in mse_loss
+    expanded_input, expanded_target = torch.broadcast_tensors(input, target)
+  File "/home/huyiwen/miniconda3/envs/kd/lib/python3.10/site-packages/torch/functional.py", line 73, in broadcast_tensors
+    return _VF.broadcast_tensors(tensors)  # type: ignore[attr-defined]
+RuntimeError: The size of tensor a (64) must match the size of tensor b (2) at non-singleton dimension 1
+s_logits tensor([[ 96.3603,  28.0076],
+        [ 81.4515,  30.4225],
+        [ 78.9599,  27.9994],
+        [101.7544,  38.8707],
+        [ 82.9711,  31.1297],
+        [ 80.1710,  57.3312],
+        [ 61.0841,  28.4233],
+        [ 97.8727,  44.7917],
+        [ 74.6102,  27.9736],
+        [ 92.2503,  28.4051],
+        [ 74.8837,  42.3733],
+        [ 98.0083,  29.5947],
+        [ 49.9026,  67.7011],
+        [ 93.4314,  28.0476],
+        [ 88.2603,  49.7752],
+        [ 94.8617,  66.0117],
+        [ 51.5846,  28.0514],
+        [101.1658,  36.3237],
+        [ 59.3969,  34.4515],
+        [ 78.1019,  46.1573],
+        [ 78.0197,  59.6618],
+        [ 72.4807,  33.8422],
+        [111.3570,  28.0412],
+        [ 77.1049,  30.8910],
+        [ 43.9294,  37.0001],
+        [ 69.0427,  42.8479],
+        [ 44.9117,  29.7400],
+        [ 43.9295,  28.0100],
+        [ 77.2450,  33.8582],
+        [ 75.5176,  36.8793],
+        [ 49.8199,  31.8046],
+        [ 74.4960,  28.5427],
+        [ 88.2914,  62.9440],
+        [ 88.7943,  28.0018],
+        [ 96.1986,  59.8853],
+        [ 88.0674,  40.4693],
+        [ 80.4897,  44.0000],
+        [ 43.9295,  28.0062],
+        [ 85.5976,  42.9185],
+        [ 71.0177,  34.4930],
+        [ 85.3637,  28.0028],
+        [ 76.0087,  28.0233],
+        [ 58.7558,  35.4545],
+        [ 57.6389,  46.4344],
+        [ 60.2050,  38.8214],
+        [ 73.0643,  27.9989],
+        [ 69.2440,  37.8513],
+        [ 83.6077,  35.0415],
+        [ 88.4656,  40.3639],
+        [ 98.4002,  44.5764],
+        [ 81.6989,  33.4090],
+        [ 73.6407,  38.9603],
+        [ 76.0633,  37.0239],
+        [ 61.7743,  37.2221],
+        [ 45.7685,  28.1067],
+        [ 85.4539,  58.5198],
+        [ 97.2472,  28.0378],
+        [ 71.0076,  27.9985],
+        [ 66.6470,  55.8194],
+        [ 77.4454,  31.7216],
+        [ 94.9672,  28.4132],
+        [ 78.6544,  53.9108],
+        [ 78.1141,  33.6688],
+        [ 84.9503,  40.9657]], device='cuda:0', grad_fn=<MaxBackward0>) label tensor([1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0,
+        1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
+        0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0], device='cuda:0')
+t_logits tensor([2.4309, 3.6034, 3.6392, 3.6303, 3.6334, 2.9946, 2.9223, 2.7409, 3.5837,
+        3.1456, 3.1945, 3.6561, 3.6449, 3.4466, 3.3266, 3.0870, 3.6338, 3.0576,
+        3.6115, 3.4312, 3.6974, 3.3920, 3.0883, 3.4402, 2.6993, 2.8815, 3.6534,
+        3.6432, 3.1378, 3.6443, 3.6590, 3.0029, 3.6341, 3.6249, 3.2246, 3.5822,
+        1.4216, 3.0925, 3.5848, 3.3870, 3.6249, 2.2974, 3.3884, 2.8583, 2.2566,
+        3.5360, 3.6471, 3.1731, 3.6566, 3.4755, 3.6457, 3.6181, 3.6265, 3.3412,
+        3.4027, 3.6340, 3.1241, 3.6253, 3.6207, 3.6409, 3.4049, 3.5584, 3.4312,
+        3.6250], device='cuda:0')

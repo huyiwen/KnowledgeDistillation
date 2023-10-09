@@ -1,9 +1,10 @@
 #!/bin/bash
-nvidia-smi
-read -p "GPU: " gpu
+# nvidia-smi
+# read -p "GPU: " gpu
+# read -p "Bark [0/1]: " bark
 
 export OMP_NUM_THREADS=16
-export CUDA_VISIBLE_DEVICES=$gpu
+# export CUDA_VISIBLE_DEVICES=$gpu
 
 case "$1" in
     -d|--daemon)
@@ -15,7 +16,7 @@ case "$1" in
 esac
 
 
-BARK_TOKEN=$(cat BARK_TOKEN)
+# BARK_TOKEN=$(cat BARK_TOKEN)
 
 # post [Completed/Failed] + [Method]
 function post() {
@@ -159,7 +160,7 @@ function train() {
 ###########   EMB_FC     ###########
 
 # EMB_FC 74.10%
-# train EMB_FC --use-mpo --mpo-type "embedding" "fc" --embedding-input-shape 19 4 2 7 20 --embedding-output-shape 10 3 1 1 10 --fc1-input-shape 10 2 1 3 10 --fc1-output-shape 6 2 1 2 8 --fc2-input-shape 6 2 1 2 8 --fc2-output-shape 5 1 1 1 1
+# CUDA_VISIBLE_DEVICES=5 python3 -u distill.py --use-mpo --mpo-type "embedding" "fc" --embedding-input-shape 19 4 2 7 20 --embedding-output-shape 10 3 1 1 10 --fc1-input-shape 10 2 1 3 10 --fc1-output-shape 6 2 1 2 8 --fc2-input-shape 6 2 1 2 8 --fc2-output-shape 2 1 1 1 1 --teacher-save-path saved_dict/new_teacher_base_sst2.ckpt --teacher-num-epochs 1 --student-num-epochs 30
 
 
 ########### EMB_LSTM_FC  ###########
@@ -172,3 +173,10 @@ function train() {
 
 # EMB_LSTM_FC 70.10%
 # train EMB_LSTM_FC --use-mpo --mpo-type "lstm" "fc" "embedding" --fc1-input-shape 10 2 1 3 10 --fc1-output-shape 6 2 1 2 8 --fc2-input-shape 6 2 1 2 8 --fc2-output-shape 5 1 1 1 1 --xh-input-shape 300 1 --xh-output-shape 1200 1 --hh-input-shape 300 1 --hh-output-shape 1200 1 --embedding-input-shape 19 4 2 7 20 --embedding-output-shape 10 3 1 1 10
+
+### replicate
+
+# EMB_FC 74.10%
+CUDA_VISIBLE_DEVICES=5 python3 -u distill.py --train-teacher 0 --mpo-type embedding --embedding-input-shape 19 4 2 7 20 --embedding-output-shape 10 3 1 1 10 --fc1-input-shape 10 2 1 3 10 --fc1-output-shape 6 2 1 2 8 --fc2-input-shape 6 2 1 2 8 --fc2-output-shape 2 1 1 1 1 --teacher-save-path saved_dict/new_teacher_base1_sst2.ckpt --teacher-num-epochs 1 --student-num-epochs 30 --opt AdamW --bert-path /home/huyiwen/pretrained/bert-base-uncased-SST-2 --max-seq-length 128
+
+CUDA_VISIBLE_DEVICES=6 python3 -u distill.py --use-mpo --train-teacher 0 --mpo-type embedding --embedding-input-shape 19 4 2 7 20 --embedding-output-shape 10 3 1 1 10 --fc1-input-shape 10 2 1 3 10 --fc1-output-shape 6 2 1 2 8 --fc2-input-shape 6 2 1 2 8 --fc2-output-shape 2 1 1 1 1 --teacher-save-path saved_dict/new_teacher_base1_sst2.ckpt --teacher-num-epochs 1 --student-num-epochs 30 --opt AdamW --bert-path /home/huyiwen/pretrained/bert-base-uncased-SST-2 --max-seq-length 128

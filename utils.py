@@ -13,6 +13,12 @@ import torch
 import numpy as np
 from datetime import timedelta
 from torch.utils.data import DataLoader, TensorDataset
+from transformers import PreTrainedTokenizer
+from prefetch_generator import BackgroundGenerator
+
+class DataLoaderX(torch.utils.data.DataLoader):
+    def __iter__(self):
+        return BackgroundGenerator(super().__iter__())
 
 
 def get_chinese(text):
@@ -42,11 +48,20 @@ def get_dataset(path):
     return text, label
 
 
-def get_loader(x, y, tokenizer):
-    data = tokenizer.batch_encode_plus(x, max_length=50, padding='max_length', truncation='longest_first')
+def get_loader(x, y, tokenizer: PreTrainedTokenizer, max_seq_length, batch_size):
+    data = tokenizer.batch_encode_plus(x, max_length=max_seq_length, padding='max_length', truncation='longest_first')
     input_ids = data['input_ids']
+    # print(input_ids[:10])
     mask = data['attention_mask']
-    data_loader = DataLoader(TensorDataset(torch.LongTensor(input_ids),torch.LongTensor(mask),torch.LongTensor(y)), batch_size=64)
+    data_loader = DataLoaderX(
+        TensorDataset(
+            torch.LongTensor(input_ids),
+            torch.LongTensor(mask),
+            torch.LongTensor(y)
+        ),
+        batch_size=batch_size,
+        shuffle=True,
+    )
     return data_loader
 
 
